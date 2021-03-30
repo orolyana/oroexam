@@ -16,11 +16,13 @@ from emoji import emojize
 
 
 
+sys.path.insert(0, os.path.dirname(__file__))
+
 APITOKEN = "1672083061:AAFsAYNzZzXRH8AX0PuPj3C-syIhVmt60h8"
 bot = telepot.Bot(APITOKEN)
 answerer = telepot.helper.Answerer(bot)
 
-BASE = 'http://www.app.neaea.gov.et'
+BASE = 'http://www.result.neaea.gov.et'
 
 
 #You should probably update the cookies to a newer one
@@ -33,13 +35,13 @@ cookies = {
 }
 
 headers = {
-    'Origin': 'http://www.app.neaea.gov.et',
+    'Origin': 'http://www.result.neaea.gov.et',
     'Accept-Encoding': 'gzip, deflate',
     'Accept-Language': 'en-US,en;q=0.9',
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36',
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': '*/*',
-    'Referer': 'http://www.app.neaea.gov.et/Home/Student',
+    'Referer': 'http://www.result.neaea.gov.et/Home/Student',
     'X-Requested-With': 'XMLHttpRequest',
     'Connection': 'keep-alive',
 }
@@ -121,12 +123,12 @@ def get_results(admissionId):
           ('admissionNumber', admissionId),
           ('__RequestVerificationToken', 'TtMMZ7TQSi0g-fBtZwJvNJdd6E1ljGLuTud2bKL5Fk2lqI8LGk7CK4tcBqApbLWfFJUEy_IaLj3NZae5uiSDPh4yU16HsUig5dbhKID8Yxk1'),
         ]
-        response = requests.post('http://www.app.neaea.gov.et/Student/StudentDetailsx', headers=headers, cookies=cookies, data=data)
+        response = requests.post('http://www.result.neaea.gov.et/Student/StudentDetailsx', headers=headers, cookies=cookies, data=data)
         
         if response.status_code == 200:
             if json.loads(response.text):
                 student = json.loads(response.text)[0]
-                marks_response = requests.post('http://www.app.neaea.gov.et/Student/StudentMark?studentId=' + str(student['Id']) +'&_=1533025370907', headers=headers, cookies=cookies, data=data)
+                marks_response = requests.post('http://www.result.neaea.gov.et/Student/StudentMark?studentId=' + str(student['Id']) +'&_=1533025370907', headers=headers, cookies=cookies, data=data)
                 if marks_response.status_code == 200:
                     subjects = json.loads(marks_response.text)
                     for subject in subjects:
@@ -161,7 +163,6 @@ def log(msg):
     with open('log_results.txt', 'a') as logfile:
         now = datetime.datetime.now()
         logfile.write(now.isoformat()+"\t"+str(msg)+"\n\n")
-
 
 def main():
     MessageLoop(bot, {'chat': handle,
