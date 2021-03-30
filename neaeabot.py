@@ -18,7 +18,7 @@ from emoji import emojize
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-APITOKEN = "1672083061:AAFsAYNzZzXRH8AX0PuPj3C-syIhVmt60h8"
+APITOKEN = "1786788506:AAHOB_JmVyd0qpLZDt0MtE6mColz-1brC48"
 bot = telepot.Bot(APITOKEN)
 answerer = telepot.helper.Answerer(bot)
 
